@@ -14,8 +14,11 @@ Simple tools to discover and control WiZ bulbs, plus a minimal pinch gesture con
 ## Configure
 
 - Create `.env` in the repo root (or edit the existing one):
-  - `BULB_IP=192.168.1.123`
-  - `BIND_IP=192.168.1.34` (optional; only if you needed binding earlier)
+  - Single bulb (legacy): `BULB_IP=192.168.1.123`
+  - Two bulbs (optional):
+    - Map to hands with `BULB_LEFT_IP=...` and `BULB_RIGHT_IP=...`
+    - or use `BULB1_IP=...` and `BULB2_IP=...` (also map to Left/Right)
+  - `BIND_IP=192.168.1.34` (optional; only if you needed local bind)
   - Pinch tuning (optional): `CLOSE_NORM=0.55`, `OPEN_NORM=0.85`, `COOLDOWN_S=0.5`
 
 ## Commands
@@ -28,13 +31,16 @@ Simple tools to discover and control WiZ bulbs, plus a minimal pinch gesture con
 
 ## Pinch Control
 
-- Run the minimal pinch controller (reads `.env`):
+- Run the pinch controller (reads `.env`):
   - `python src\\LightControlCV.py`
-- Gesture: pinch thumb+index to toggle, open to re‑arm.
+- Gestures: pinch thumb+index to toggle; open to re-arm.
+- Two bulbs: left-hand pinch controls `BULB_LEFT_IP`, right-hand pinch controls `BULB_RIGHT_IP`.
+- If only `BULB_IP` is set, any hand controls that one bulb.
 - Tuning via `.env`: `CLOSE_NORM`, `OPEN_NORM`, `COOLDOWN_S`.
 
 ## Notes
 
-- Get the bulb IP from the WiZ app (device details) or your router’s client list, then put it in `.env`.
+- Get the bulb IP from the WiZ app (device details) or your router's client list, then put it in `.env`.
 - Ensure your PC and bulbs are on the same network.
-- Avoid sending rapid repeated commands; some firmware rate‑limits.
+- Avoid sending rapid repeated commands; some firmware rate-limits.
+
